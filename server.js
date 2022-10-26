@@ -2,12 +2,16 @@
 const express = require('express')
 const colors = require('colors')
 const dotenv = require('dotenv')
+const connectDB = require('./config/db')
 const listEndpoints = require('express-list-endpoints')
 
 //dependencia de rutas
 const  bootcampRoutes = require('./routes/BootcampRoutes')
 const  courseRoutes = require('./routes/CourseRoutes')
+const  userRoutes = require('./routes/UserRoutes')
 
+//conectar a db
+connectDB()
 
 //definiendo archivo .env
 dotenv.config({
@@ -19,6 +23,7 @@ const app = express()
 //relacionar rutas de aplicacion
 app.use('/api/v1/bootcamps' , bootcampRoutes)
 app.use('/api/v1/courses' , courseRoutes)
+app.use('/api/v1/users' , userRoutes)
 
 //primera ruta de prueba
 app.get('/' , (request , response )=>{
