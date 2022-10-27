@@ -9,6 +9,7 @@ const listEndpoints = require('express-list-endpoints')
 const  bootcampRoutes = require('./routes/BootcampRoutes')
 const  courseRoutes = require('./routes/CourseRoutes')
 const  userRoutes = require('./routes/UserRoutes')
+const { use } = require('./routes/BootcampRoutes')
 
 //conectar a db
 connectDB()
@@ -19,6 +20,9 @@ dotenv.config({
 })
 //2. cear el objeto aplicacion con express
 const app = express()
+
+//habilitar express para tratar content-type json
+app.use(express.json())
 
 //relacionar rutas de aplicacion
 app.use('/api/v1/bootcamps' , bootcampRoutes)

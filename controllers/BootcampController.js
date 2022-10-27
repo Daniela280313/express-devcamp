@@ -1,40 +1,60 @@
 
+//1. objeto de conexion 
+const sequelize = require('../config/seq')
+//2. Datatypes
+const {Datatypes} = require('sequelize')
+//3. el modelo 
 
-exports.getBootcamps = (req , res)=>{
+
+exports.getBootcamps = async (req , res)=>{
+    const allBootcamp = await Bootcamp.findAll()
         res
         .status(200)
         .json({
             "succes" : true,
-            "data" : `todos los bootcamp`
+            "data" : allBootcamp
         })
     }
 
-    exports.getsingleBootcamp = (req , res)=>{
+    exports.getsingleBootcamp = async (req , res)=>{
+        const singleBootcamp = await Bootcamp.findByPk(req.params.id)
         res
         .status(200)
         .json({
             "succes" : true,
-            "data" : `single bootcamp ${req.params.id}`
+            "data" : singleBootcamp
         })
     }
 
-    exports.createBootcamp = (req , res)=>{
+    exports.createBootcamp = async (req , res)=>{
+        const newBootcamp = await Bootcamp.create(req.body);
         res.status(201)
         .json({
             "succes" : true,
-            "data" : "crear bootcamp"
+            "data" : newBootcamp
         })
     }
 
-    exports.updateBootcamp = (req , res)=>{
+    exports.updateBootcamp = async (req , res)=>{
+        await Bootcamp.update(req.body, {
+            where: {
+                id: req.params.id
+            }
+        });
+        const singleBootcamp = await Bootcamp.findByPk(req.params.id)
         res.status(200)
         .json({
             "succes" : true,
-            "data" : `actualizar bootcamp ${req.params.id}`
+            "data" : singleBootcamp
         })
     }
 
-    exports.deleteBootcamp = (req , res)=>{
+    exports.deleteBootcamp = async (req , res)=>{
+        await Bootcamp.destroy({
+            where: {
+                id: req.params.id
+            }
+          });
         res.status(200)
         .json({
             "succes" : true,
