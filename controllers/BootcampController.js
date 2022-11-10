@@ -7,12 +7,12 @@ const {Datatypes} = require('sequelize')
 
 
 exports.getBootcamps = async (req , res)=>{
-    const allBootcamp = await Bootcamp.findAll()
+    const getBootcamps = await Bootcamp.findAll()
         res
         .status(200)
         .json({
             "succes" : true,
-            "data" : allBootcamp
+            "data" : getBootcamps
         })
     }
 
